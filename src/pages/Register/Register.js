@@ -1,12 +1,41 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../routes/AuthProvider/AuthProvider';
 
 const Register = () => {
+
+    const { createUser } = useContext(AuthContext);
+    const [error, setError] = useState('')
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const name = form.name.value;
+        const photo = form.photo.value;
+        const email = form.email.value;
+        const password = form.password.value;
+
+        console.log(name, photo, email, password);
+
+        createUser(email, password)
+        .then(result =>{
+            const user = result.user;
+            console.log(user)
+            setError('');
+            form.reset();
+        })
+        .catch(e =>{
+            console.error(e)
+            setError(e.message)
+        })
+
+    };
     return (
         <div className='mt-15'>
             <h2 className='text-center text-4xl font-bold text-blue-500'>Please Register!!!</h2>
-            <form className="flex flex-col gap-4 w-3/4 mx-auto">
+            <form onSubmit={handleSubmit}
+                className="flex flex-col gap-4 w-3/4 mx-auto">
                 <div>
                     <div className="mb-2 block">
                         <Label
@@ -16,6 +45,7 @@ const Register = () => {
                     </div>
                     <TextInput
                         id="name"
+                        name='name'
                         type="text"
                         placeholder="David John"
                         required={true}
@@ -30,6 +60,7 @@ const Register = () => {
                     </div>
                     <TextInput
                         id="photo"
+                        name='photo'
                         type="text"
                         placeholder="URL"
                         required={true}
@@ -44,6 +75,7 @@ const Register = () => {
                     </div>
                     <TextInput
                         id="email"
+                        name='email'
                         type="email"
                         placeholder="name@gmail.com"
                         required={true}
@@ -58,6 +90,7 @@ const Register = () => {
                     </div>
                     <TextInput
                         id="password1"
+                        name='password'
                         type="password"
                         placeholder='at least 6 characters'
                         required={true}
@@ -68,6 +101,9 @@ const Register = () => {
                     <Label htmlFor="remember">
                         Accept <Link className='text-blue-500' to='/terms'>Terms & Conditions</Link>
                     </Label>
+                </div>
+                <div className="text-red-600">
+                        {error}
                 </div>
                 <Button className='mx-auto mb-4 p-3' type="submit" gradientDuoTone="purpleToBlue">
                     Register

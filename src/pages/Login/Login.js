@@ -1,3 +1,4 @@
+import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
 import React, { useContext, useState } from 'react';
 import { FaGithub, FaGoogle } from 'react-icons/fa';
@@ -5,8 +6,11 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../routes/AuthProvider/AuthProvider';
 
 const Login = () => {
-    const { signIn } = useContext(AuthContext);
+    const { signIn, providerLogin } = useContext(AuthContext);
     const [error, setError] = useState('')
+
+    const googleProvider = new GoogleAuthProvider();
+    const githubProvider = new GithubAuthProvider();
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -16,16 +20,34 @@ const Login = () => {
         console.log(email, password);
 
         signIn(email, password)
-        .then(result => {
-            const user = result.user;
-            console.log(user)
-            setError('');
-            form.reset();
-        })
-        .catch(e => {
-            console.error(e)
-            setError(e.message)
-        })
+            .then(result => {
+                const user = result.user;
+                console.log(user)
+                setError('');
+                form.reset();
+            })
+            .catch(e => {
+                console.error(e)
+                setError(e.message)
+            })
+    }
+
+    const handleGoogleSignIn = provider => {
+        providerLogin(googleProvider)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch(error => console.error(error))
+    };
+
+    const handleGithubSignin = provider => {
+        providerLogin(githubProvider)
+            .then(result => {
+                const user = result.user;
+                console.log(user)
+            })
+            .catch(error => console.error(error))
     }
     return (
         <div className='mt-20'>
@@ -68,7 +90,7 @@ const Login = () => {
                     </Label>
                 </div>
                 <div className="text-red-600">
-                        {error}
+                    {error}
                 </div>
 
                 <p>Want to register first? <Link className='text-blue-500' to='/register'>Register Here</Link></p>
@@ -80,6 +102,7 @@ const Login = () => {
             <div className="flex flex-wrap items-center justify-center gap-2">
                 <div className=''>
                     <Button
+                        onClick={handleGoogleSignIn}
                         outline={true}
                         gradientDuoTone="purpleToBlue"
                     >
@@ -88,6 +111,7 @@ const Login = () => {
                 </div>
                 <div >
                     <Button
+                        onClick={handleGithubSignin}
                         outline={true}
                         gradientDuoTone="purpleToPink"
                     >

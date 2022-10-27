@@ -15,12 +15,12 @@ const CourseDetails = ({ course }) => {
         documentTitle: 'Course',
         onAfterPrint: () => alert('React to pdf success!!!')
     })
-    
-    
+
+
     return (
 
         <div ref={componentRef}>
-            <Card class=" bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 border m-10" >
+            <Card class=" bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 border md:m-10">
                 <div className='flex justify-between border-b'>
 
                     <div className='flex gap-2 dark:text-white text-black mb-3'>
@@ -35,12 +35,12 @@ const CourseDetails = ({ course }) => {
                     </div>
 
                 </div>
-                <img class="p-8 rounded-t-lg h-96 w-3/4 mx-auto" src={picture} alt="course pic" />
+                <img class="p-8 rounded-t-lg md:h-96 md:w-3/4 mx-auto" src={picture} alt="course pic" />
                 <h2 class="text-3xl text-center font-semibold tracking-tight text-gray-900 dark:text-white">{name}</h2>
                 <div class="px-5 pb-5">
 
 
-                    <div class="flex items-center justify-between mt-2.5 mb-5">
+                    <div class="md:flex items-center justify-between mt-2.5 mb-5">
 
                         <div className='flex text-yellow-300'>
                             <FaStar></FaStar>

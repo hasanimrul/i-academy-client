@@ -1,4 +1,4 @@
-import { Card } from 'flowbite-react';
+import { Button, Card } from 'flowbite-react';
 import React from 'react';
 import { FaRegBookmark, FaShareAlt, FaStar } from 'react-icons/fa';
 
@@ -6,12 +6,17 @@ const CourseDetails = ({ course }) => {
     const { name, about, picture, price } = course;
     return (
 
-        <Card class="w-full bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+        <Card class="w-full bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 border my-5">
             <div className='flex justify-between'>
-               
-                <div className='flex dark:text-white text-black'>
-                    <FaRegBookmark className="me-2"></FaRegBookmark>
+
+                <div className='flex gap-2 dark:text-white text-black'>
+                    <FaRegBookmark></FaRegBookmark>
                     <FaShareAlt></FaShareAlt>
+                </div>
+                <div>
+                    <Button gradientDuoTone="purpleToBlue">
+                        Download pdf
+                    </Button>
                 </div>
 
             </div>
@@ -35,6 +40,11 @@ const CourseDetails = ({ course }) => {
 
                 </div>
                 <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{about}</p>
+            </div>
+            <div>
+                <Button className='mx-auto' gradientDuoTone="redToYellow">
+                    Get premium access
+                </Button>
             </div>
         </Card>
 

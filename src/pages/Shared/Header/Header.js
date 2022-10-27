@@ -1,4 +1,4 @@
-import { Navbar } from 'flowbite-react';
+import { Navbar, Tooltip } from 'flowbite-react';
 import React, { useContext } from 'react';
 import { FaUserAlt, BsMoonFill } from 'react-icons/fa';
 import { Link } from "react-router-dom";
@@ -54,7 +54,7 @@ const Header = () => {
     }
     return (
         <div>
-            
+
             <Navbar className='bg-gray-100 border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-900'
             >
                 <Link to="/" className='flex flex-row'>
@@ -124,8 +124,10 @@ const Header = () => {
                     <Link className='text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent'
                         to="/profile">
                         {
-                            user?.photURL ?
-                                <img className="w-9 rounded-full" src={user?.photoURL} alt="user pic" />
+                            user?.photoURL ?
+                                <Tooltip content={user?.displayName}>
+                                    <img className="w-9 rounded-full" src={user?.photoURL} alt="user pic" />
+                                </Tooltip>
                                 :
                                 <FaUserAlt></FaUserAlt>
                         }

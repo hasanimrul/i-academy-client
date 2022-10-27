@@ -2,15 +2,26 @@ import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
 import React, { useContext, useState } from 'react';
 import { FaGithub, FaGoogle } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../routes/AuthProvider/AuthProvider';
 
 const Login = () => {
-    const { signIn, providerLogin } = useContext(AuthContext);
+    const { signIn, providerLogin, setLoading, loading } = useContext(AuthContext);
     const [error, setError] = useState('')
 
     const googleProvider = new GoogleAuthProvider();
     const githubProvider = new GithubAuthProvider();
+
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    if (loading) {
+        return <div className=" flex justify-center items-center">
+            <div class="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900 dark:border-gray-300"></div>
+        </div>
+    }
+
+    const from = location.state?.from?.pathname || '/';
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -25,11 +36,13 @@ const Login = () => {
                 console.log(user)
                 setError('');
                 form.reset();
+                navigate(from, { replace: true })
             })
             .catch(e => {
                 console.error(e)
                 setError(e.message)
             })
+            .finally(() => setLoading(false))
     }
 
     const handleGoogleSignIn = provider => {

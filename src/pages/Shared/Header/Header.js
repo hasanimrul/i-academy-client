@@ -1,4 +1,4 @@
-import { Navbar, Tooltip } from 'flowbite-react';
+import { Button, Navbar, Tooltip } from 'flowbite-react';
 import React, { useContext } from 'react';
 import { FaUserAlt, BsMoonFill } from 'react-icons/fa';
 import { Link } from "react-router-dom";
@@ -7,8 +7,7 @@ import LeftSideNav from '../LeftSideNav/LeftSideNav';
 
 const Header = () => {
 
-    const { user } = useContext(AuthContext);
-    console.log(user);
+    const { user, logOut } = useContext(AuthContext);
 
     const handledarkMode = () => {
         var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
@@ -51,6 +50,11 @@ const Header = () => {
             }
 
         });
+    }
+    const handleLogOut = () => {
+        logOut()
+            .then(() => { })
+            .catch(e => console.error(e))
     }
     return (
         <div>
@@ -117,10 +121,23 @@ const Header = () => {
                         to="/blog">
                         Blog
                     </Link>
-                    <Link className='text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent'
-                        to="/login">
-                        Log in
-                    </Link>
+                    <>
+                        {
+                            user?.uid ?
+                                <>
+                                    <Button className="me-2" onClick={handleLogOut} outline={true}
+                                        gradientDuoTone="purpleToBlue">Log Out</Button>
+                                </>
+                                :
+                                <>
+                                    <Link className='text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent'
+                                        to="/login">
+                                        Log in
+                                    </Link>
+                                </>
+                        }
+                    </>
+
                     <Link className='text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent'
                         to="/profile">
                         {

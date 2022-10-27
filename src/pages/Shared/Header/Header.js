@@ -146,7 +146,9 @@ const Header = () => {
                                     <img className="w-9 rounded-full" src={user?.photoURL} alt="user pic" />
                                 </Tooltip>
                                 :
-                                <FaUserAlt></FaUserAlt>
+                                <Tooltip content={user?.displayName}>
+                                    <FaUserAlt></FaUserAlt>
+                                </Tooltip>
                         }
 
                     </Link>

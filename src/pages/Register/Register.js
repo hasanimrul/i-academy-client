@@ -5,8 +5,9 @@ import { AuthContext } from '../../routes/AuthProvider/AuthProvider';
 
 const Register = () => {
 
-    const { createUser } = useContext(AuthContext);
-    const [error, setError] = useState('')
+    const { createUser, updateUserProfile } = useContext(AuthContext);
+    const [error, setError] = useState('');
+    const [accepted,setAccepted] = useState(false)
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -22,6 +23,7 @@ const Register = () => {
             console.log(user)
             setError('');
             form.reset();
+            handleUpdateUserProfile(name, photo)
         })
         .catch(e =>{
             console.error(e)
@@ -29,6 +31,19 @@ const Register = () => {
         })
 
     };
+    const handleUpdateUserProfile = (name, photoURL) =>{
+        const profile = {
+            displayName: name,
+            photoURL: photoURL
+        }
+        updateUserProfile(profile)
+        .then( () =>{})
+        .catch(e => console.error(e))
+    };
+
+    const handleAccepted = (event) =>{
+        setAccepted(event.target.checked)
+};
     return (
         <div className='mt-15'>
             <h2 className='text-center text-4xl font-bold text-blue-500'>Please Register!!!</h2>
@@ -95,7 +110,7 @@ const Register = () => {
                     />
                 </div>
                 <div className="flex items-center gap-2">
-                    <Checkbox id="remember" />
+                    <Checkbox onClick={handleAccepted} id="remember" />
                     <Label htmlFor="remember">
                         Accept <Link className='text-blue-500' to='/terms'>Terms & Conditions</Link>
                     </Label>
@@ -103,7 +118,7 @@ const Register = () => {
                 <div className="text-red-600">
                         {error}
                 </div>
-                <Button className='mx-auto p-3' type="submit" gradientDuoTone="purpleToBlue">
+                <Button className='mx-auto p-3' type="submit" gradientDuoTone="purpleToBlue" disabled={!accepted}>
                     Register
                 </Button>
                 <p className='text-gray-500 dark:text-gray-400'>Already have an account? <Link className='text-blue-500' to='/login'>Log in</Link></p>

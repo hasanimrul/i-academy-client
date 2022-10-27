@@ -5,7 +5,7 @@ import { AuthContext } from '../../routes/AuthProvider/AuthProvider';
 
 const Register = () => {
 
-    const { createUser, updateUserProfile, setUser } = useContext(AuthContext);
+    const { createUser, updateUserProfile, setUser, logOut } = useContext(AuthContext);
     const [error, setError] = useState('');
     const [accepted,setAccepted] = useState(false)
 
@@ -21,7 +21,7 @@ const Register = () => {
         .then(result =>{
             const user = result.user;
             console.log(user)
-            setUser(user);
+            logOut();
             setError('');
             form.reset();
             handleUpdateUserProfile(name, photo);

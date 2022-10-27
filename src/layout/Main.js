@@ -10,7 +10,7 @@ const Main = () => {
             <Header></Header>
             <div className='grid grid-cols-4 mb-20'>
                 <div className="col-span-1 hidden md:block"><LeftSideNav></LeftSideNav></div>
-                <div className='col-span-3'><Outlet></Outlet></div>
+                <div className='col-span-3 border-l pl-5'><Outlet></Outlet></div>
             </div>
             <Footer></Footer>
         </div>

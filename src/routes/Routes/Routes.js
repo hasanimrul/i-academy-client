@@ -10,6 +10,7 @@ import TermsAndConditions from '../../pages/Others/TermsAndConditions/TermsAndCo
 import Profile from '../../pages/Others/Profile/Profile';
 import Category from '../../pages/Category/Category';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
+import Checkout from '../../pages/Others/Checkout/Checkout';
 
 export const routes = createBrowserRouter([
     {
@@ -23,7 +24,12 @@ export const routes = createBrowserRouter([
             },
             {
                 path: '/category/:id',
-                element: <PrivateRoute><Category></Category></PrivateRoute>,
+                element: <Category></Category>,
+                loader: ({ params }) => fetch(`https://i-academy-server.vercel.app/category/${params.id}`)
+            },
+            {
+                path: '/checkout/:id',
+                element: <PrivateRoute><Checkout></Checkout></PrivateRoute>,
                 loader: ({ params }) => fetch(`https://i-academy-server.vercel.app/category/${params.id}`)
             },
             {

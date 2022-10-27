@@ -93,12 +93,12 @@ const Login = () => {
                     {error}
                 </div>
 
-                <p>Want to register first? <Link className='text-blue-500' to='/register'>Register Here</Link></p>
+                <p className='text-gray-500 dark:text-gray-400'>Want to register first? <Link className='text-blue-500' to='/register'>Register Here</Link></p>
                 <Button className='mx-auto mb-4 p-3' type="submit" gradientDuoTone="purpleToBlue">
                     Log in
                 </Button>
             </form>
-            <p className='text-center'>Log in with one of the following:</p>
+            <p className='text-center text-gray-500 dark:text-gray-400'>Log in with one of the following:</p>
             <div className="flex flex-wrap items-center justify-center gap-2">
                 <div className=''>
                     <Button

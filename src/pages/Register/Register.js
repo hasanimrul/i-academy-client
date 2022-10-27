@@ -105,10 +105,10 @@ const Register = () => {
                 <div className="text-red-600">
                         {error}
                 </div>
-                <Button className='mx-auto mb-4 p-3' type="submit" gradientDuoTone="purpleToBlue">
+                <Button className='mx-auto p-3' type="submit" gradientDuoTone="purpleToBlue">
                     Register
                 </Button>
-                <p>Already have an account? <Link className='text-blue-500' to='/login'>Log in</Link></p>
+                <p className='text-gray-500 dark:text-gray-400'>Already have an account? <Link className='text-blue-500' to='/login'>Log in</Link></p>
             </form>
         </div>
     );

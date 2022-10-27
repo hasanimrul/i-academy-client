@@ -1,28 +1,37 @@
 import { Button, Card } from 'flowbite-react';
-import React from 'react';
+import React, { useRef } from 'react';
 import { FaRegBookmark, FaShareAlt, FaStar } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import Pdf from "react-to-pdf";
+
+import { useReactToPrint } from 'react-to-print';
 
 const ref = React.createRef();
 const CourseDetails = ({ course }) => {
     const { name, about, picture, price, category_id } = course;
+
+    const componentRef = useRef();
+    const handlePdf = useReactToPrint({
+        content: () => componentRef.current,
+        documentTitle: 'Course',
+        onAfterPrint: () => alert('print success')
+    })
+    
+    
     return (
 
-        <Card class=" bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 border m-10">
-            <div className='flex justify-between border-b'>
+        <div ref={componentRef} style={{ width: '100%', height: window.innerHeight }}>
+            <Card class=" bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 border m-10" >
+                <div className='flex justify-between border-b'>
 
-                <div className='flex gap-2 dark:text-white text-black mb-3'>
-                    <FaRegBookmark></FaRegBookmark>
-                    <FaShareAlt></FaShareAlt>
-                </div>
-                <div className='mb-3'>
-                    <Pdf targetRef={ref} filename="code-example.pdf">
-                                {({ toPdf }) => <Button onClick={toPdf} gradientDuoTone="purpleToBlue">
-                                    Download pdf
-                                </Button>}
-                            </Pdf>
-                    
+                    <div className='flex gap-2 dark:text-white text-black mb-3'>
+                        <FaRegBookmark></FaRegBookmark>
+                        <FaShareAlt></FaShareAlt>
+                    </div>
+                    <div className='mb-3' >
+
+                        <Button onClick={handlePdf} gradientDuoTone="purpleToBlue">
+                            Download pdf
+                        </Button>
                     </div>
 
                 </div>
@@ -56,8 +65,9 @@ const CourseDetails = ({ course }) => {
                         </div>
                     </Link>
                 </div>
-               
-        </Card>
+
+            </Card>
+        </div>
 
     );
 };

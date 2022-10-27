@@ -13,13 +13,13 @@ const CourseDetails = ({ course }) => {
     const handlePdf = useReactToPrint({
         content: () => componentRef.current,
         documentTitle: 'Course',
-        onAfterPrint: () => alert('print success')
+        onAfterPrint: () => alert('React to pdf success!!!')
     })
     
     
     return (
 
-        <div ref={componentRef} style={{ width: '100%', height: window.innerHeight }}>
+        <div ref={componentRef}>
             <Card class=" bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 border m-10" >
                 <div className='flex justify-between border-b'>
 

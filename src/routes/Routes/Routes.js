@@ -59,6 +59,10 @@ export const routes = createBrowserRouter([
             {
                 path: '/profile',
                 element: <Profile></Profile>
+            },
+            {
+                path: '*',
+                element: <h2 className='text-5xl dark:text-white text-center'> 404 error!! This route is not found.</h2>
             }
         ]
     }
